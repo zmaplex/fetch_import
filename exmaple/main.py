@@ -1,14 +1,6 @@
-# fetch_import
-
-It is convenient to quickly import Python packages from the network.
-
-## How to use？
-
-```python
 from fetch_import import import_attr
 
 
-# equivalent "from youtube_downloader import YoutubeDownloader"
 @import_attr(
     "https://raw.githubusercontent.com/zmaplex/fetch_import/main/exmaple/youtube_downloader.py",
     "YoutubeDownloader")
@@ -27,4 +19,7 @@ def main():
     }
     yd = YoutubeDownloader()
     yd.run(**job_args)
-```
+
+
+if __name__ == '__main__':
+    main()

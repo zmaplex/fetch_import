@@ -30,8 +30,6 @@ def _import(globals: dict, url: str, name=None, imports: List = None, source_fil
     :return:
     """
     _source_file_path = source_file_path
-    print()
-
     context = ''
     if name is None:
         name = url.split("/")[-1].split(".")[0]
