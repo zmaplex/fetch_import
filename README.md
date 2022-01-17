@@ -1,9 +1,14 @@
-# fetch_import
+# Fetch-import
 
 It is convenient to quickly import Python packages from the network.
 
 ## How to use？
-
+**step 1**
+```bash
+pip install fetch-import
+pip -r requirements.txt
+```
+**step 2**
 ```python
 from fetch_import import import_attr
 
