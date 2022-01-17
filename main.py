@@ -2,7 +2,7 @@ from fetch_import import import_attr
 
 
 @import_attr(
-    "https://raw.githubusercontent.com/zmaplex/fetch_import/main/exmaple/youtube_downloader.py",
+    "https://raw.githubusercontent.com/zmaplex/fetch_import/main/example/youtube_downloader.py",
     "YoutubeDownloader")
 def main():
     ydl_opts = {

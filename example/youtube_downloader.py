@@ -6,7 +6,7 @@ from yt_dlp import YoutubeDL
 from fetch_import import _import
 
 _import(globals(),
-        "https://raw.githubusercontent.com/zmaplex/fetch_import/main/exmaple/job_plugin.py",
+        "https://raw.githubusercontent.com/zmaplex/fetch_import/main/example/job_plugin.py",
         "JobPlugin", ["JobPlugin"])
 
 
