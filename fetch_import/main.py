@@ -83,11 +83,9 @@ def import_attr(url, attr_name: str = None):
     def decorator(func):
         def wrapper(*args, **kw):
             source_file_path = func.__globals__['__file__']
-            print(source_file_path)
             import_list = _import(func.__globals__, url, imports=[attr_name])
             if import_list:
                 __write_import_area(source_file_path, import_list)
-            print(source_file_path)
             return func(*args, **kw)
 
         return wrapper
