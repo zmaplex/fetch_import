@@ -1,4 +1,5 @@
 from abc import ABC
+from abc import ABCMeta
 from typing import List
 
 
@@ -6,7 +7,7 @@ class AbstractClass(ABC):
     pass
 
 
-class AbstractMetaClass(metaclass=ABC):
+class AbstractMetaClass(metaclass=ABCMeta):
     pass
 
 
