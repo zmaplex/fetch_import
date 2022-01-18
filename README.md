@@ -7,7 +7,7 @@ It is convenient to quickly import Python packages from the network.
 Example remote module file is  `"https://cdn.jsdelivr.net/gh/zmaplex/fetch_import@main/example/sets.py"
 `
 
-###@im_fetch 
+### @im_fetch 
 
 Using this Decorator, you can load resources remotely as conveniently as **import**.
 
