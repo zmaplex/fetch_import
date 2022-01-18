@@ -18,6 +18,8 @@ sets.def_function()
 ```
 Equivalent:
 ```python
+from fetch_import import im_fetch
+
 url = "https://cdn.jsdelivr.net/gh/zmaplex/fetch_import@main/example/sets.py"
 
 @im_fetch(url)
@@ -34,6 +36,8 @@ def_function()
 ```
 Equivalent:
 ```python
+from fetch_import import im_fetch
+
 @im_fetch(url,["*"])
 def main():
     obj = ObjectClass()
@@ -48,6 +52,8 @@ def_function()
 ```
 Equivalent:
 ```python
+from fetch_import import im_fetch
+
 @im_fetch(url,["ObjectClass","def_function"])
 def main():
     obj = ObjectClass()
