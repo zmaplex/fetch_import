@@ -11,7 +11,7 @@ url = "https://cdn.jsdelivr.net/gh/zmaplex/fetch_import@main/example/sets.py"
 
 class TestImportAllAttrs(unittest.TestCase):
 
-    @im_fetch(url, _globals=_fetch_module, attrs=["AbstractClass", "TypeClass", "var_int"])
+    @im_fetch(url, ["AbstractClass", "TypeClass", "var_int"], _globals=_fetch_module, )
     def test_import_all_attrs(self):
         standard_import_attr = {k: v for k, v in globals().items() if not k.startswith("_")}
         fetch_import_attr = {k: v for k, v in _fetch_module.items() if not k.startswith("_")}

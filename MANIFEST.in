@@ -1,4 +1,6 @@
 include README.md  requirements.txt
+recursive-include fetch_import *.py
+
 exclude __init__.py
 recursive-exclude example *.py
 recursive-exclude test *.py
