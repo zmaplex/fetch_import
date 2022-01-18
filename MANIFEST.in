@@ -1,2 +1,5 @@
 include README.md  requirements.txt
+exclude __init__.py
 recursive-exclude example *.py
+recursive-exclude test *.py
+recursive-exclude tmp *.py

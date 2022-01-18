@@ -9,6 +9,11 @@ config = {
 
 
 def __write_import_area(file_path, import_list: List = None):
+    if not config.get("w_import", False):
+        return
+    else:
+        return
+
     ready_imports = []
     with open(file_path, "r") as f:
         data = f.read()
@@ -29,8 +34,7 @@ def _import(globals: dict, url: str, name=None, imports: List = None, source_fil
     :param imports:
     :return:
     """
-    _source_file_path = source_file_path
-    context = ''
+
     if name is None:
         name = url.split("/")[-1].split(".")[0]
     try:
@@ -82,10 +86,7 @@ def import_all(url, imports: List = None):
 def import_attr(url, attr_name: str = None):
     def decorator(func):
         def wrapper(*args, **kw):
-            source_file_path = func.__globals__['__file__']
             import_list = _import(func.__globals__, url, imports=[attr_name])
-            if import_list:
-                __write_import_area(source_file_path, import_list)
             return func(*args, **kw)
 
         return wrapper

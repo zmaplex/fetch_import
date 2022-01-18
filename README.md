@@ -9,7 +9,7 @@ pip install fetch-import
 pip -r requirements.txt
 ```
 **step 2**
-```python
+```
 from fetch_import import import_attr
 
 
