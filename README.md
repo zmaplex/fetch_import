@@ -44,7 +44,7 @@ def main():
     def_function()
 ```
 3. Replace `from package import attr1,attr2`
-```
+```python
 from sets import ObjectClass,def_function
 
 obj = ObjectClass()
