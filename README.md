@@ -4,7 +4,7 @@ It is convenient to quickly import Python packages from the network.
 
 ## Docs
 
-Example remote module file is  `"https://cdn.jsdelivr.net/gh/zmaplex/fetch_import@main/example/sets.py"
+Example remote module file is  `"https://fastly.jsdelivr.net/gh/zmaplex/fetch_import@main/example/sets.py"
 `
 
 ### @im_fetch 
@@ -20,7 +20,7 @@ Equivalent:
 ```python
 from fetch_import import im_fetch
 
-url = "https://cdn.jsdelivr.net/gh/zmaplex/fetch_import@main/example/sets.py"
+url = "https://fastly.jsdelivr.net/gh/zmaplex/fetch_import@main/example/sets.py"
 
 @im_fetch(url)
 def main():
@@ -64,7 +64,7 @@ def main():
 **step 1**
 
 ```bash
-pip install fetch-import==0.0.2
+pip install fetch-import
 pip -r requirements.txt
 ```
 
@@ -88,7 +88,7 @@ job_args = {
 }
 
 
-url = "https://cdn.jsdelivr.net/gh/zmaplex/fetch_import@main/example/youtube_downloader.py"
+url = "https://fastly.jsdelivr.net/gh/zmaplex/fetch_import@main/example/youtube_downloader.py"
 @im_fetch(url)
 def main():
     yd = youtube_downloader.YoutubeDownloader()

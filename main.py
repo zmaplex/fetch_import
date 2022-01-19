@@ -15,7 +15,7 @@ job_args = {
 }
 
 
-url = "https://cdn.jsdelivr.net/gh/zmaplex/fetch_import@main/example/youtube_downloader.py"
+url = "https://fastly.jsdelivr.net/gh/zmaplex/fetch_import@main/example/youtube_downloader.py"
 @im_fetch(url)
 def main():
     yd = youtube_downloader.YoutubeDownloader()

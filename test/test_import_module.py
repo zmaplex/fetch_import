@@ -6,7 +6,7 @@ from fetch_import import im_fetch
 
 _fetch_module = {}
 
-url = "https://cdn.jsdelivr.net/gh/zmaplex/fetch_import@main/example/sets.py"
+url = "https://fastly.jsdelivr.net/gh/zmaplex/fetch_import@main/example/sets.py"
 
 
 class TestImportMethods(unittest.TestCase):
