@@ -50,6 +50,14 @@ def _import_v1(url: str, module: bool = False, filename=None, dir_path=""):
 
 
 def _import(url: str, module: bool = False, alias=None, dir_path="/var/tmp/fetch_import"):
+    """
+
+    :param url: remote url,https://example.com/name.py
+    :param module: if True, return {"name":"name_module"}, or return module attrs dict.
+    :param alias:
+    :param dir_path:
+    :return:
+    """
     _attrs = {}
     _mkdir(dir_path)
     sys.path.append(dir_path)
@@ -106,13 +114,13 @@ def _im_fetch(url, attrs: List = None, _globals: dict = None, *args, **kwargs):
     """
     ready_add_attrs = {}
     if attrs is None:
-        module_attrs = _import(url=url, module=True)
+        module_attrs = _import(url=url, module=True, *args, **kwargs)
         ready_add_attrs.update(module_attrs)
     elif len(attrs) == 1 and attrs[0] == "*":
         module_attrs = _import(url=url)
         ready_add_attrs.update(module_attrs)
     else:
-        module_attrs = _import(url=url)
+        module_attrs = _import(url=url, *args, **kwargs)
         _ready_pop_attr = []
         for attr_item in module_attrs:
             if attr_item in attrs:
