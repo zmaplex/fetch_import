@@ -1,6 +1,7 @@
 import importlib
 import os
 import sys
+import time
 import traceback
 from functools import wraps
 import hashlib
@@ -49,7 +50,23 @@ def _import_v1(url: str, module: bool = False, filename=None, dir_path=""):
     return _attrs
 
 
-def _import(url: str, module: bool = False, alias=None, dir_path="/var/tmp/fetch_import"):
+def __has_cache(mdc_filename: str, time_out: int = 30):
+    if time_out <= 0:
+        return False, ""
+    if not os.path.exists(mdc_filename):
+        return False, ""
+    update_time = os.path.getmtime(mdc_filename)
+
+    time_difference = time.time() - update_time
+    if time_difference < time_out:
+        with open(mdc_filename, "r") as f:
+            file_path = f.read()
+        return True, file_path
+    else:
+        return False, ""
+
+
+def _import(url: str, module: bool = False, alias=None, dir_path="/var/tmp/fetch_import", *args, **kwargs):
     """
 
     :param url: remote url,https://example.com/name.py
@@ -59,8 +76,13 @@ def _import(url: str, module: bool = False, alias=None, dir_path="/var/tmp/fetch
     :return:
     """
     _attrs = {}
-    _mkdir(dir_path)
-    sys.path.append(dir_path)
+
+    if os.name != 'posix':
+        dir_path = "./"
+    else:
+        _mkdir(dir_path)
+        sys.path.append(dir_path)
+
     filename = url.split("/")[-1].split(".")[0]
 
     if alias is None:
@@ -69,18 +91,30 @@ def _import(url: str, module: bool = False, alias=None, dir_path="/var/tmp/fetch
         module_name = alias
 
     try:
+
         content = requests.get(url)
         if content.status_code != 200:
             return _attrs
         md5 = _calc_hash(content.text)
-        filename = f"{md5}_{filename}"
-        with open(f"{dir_path}/{filename}.py", "w") as f:
-            f.write(content.text)
+        url_md5 = _calc_hash(url)
+        mdc_filename = f"{dir_path}/{url_md5}.mdc"
+
+        time_out = kwargs.get("cache_time_out", 30)
+
+        res, file_name = __has_cache(mdc_filename, time_out)
+
+        if res:
+            filename = file_name
+        else:
+            with open(mdc_filename, "w") as f:
+                f.write(f"{md5}_{filename}")
+
+            filename = f"{md5}_{filename}"
+            with open(f"{dir_path}/{filename}.py", "w") as f:
+                f.write(content.text)
     except Exception:
         print(traceback.format_exc())
         return _attrs
-
-    _mod = f"{dir_path}/{filename}"
 
     mdl = importlib.import_module(filename)
 
@@ -153,7 +187,5 @@ def im_fetch(url, attrs: List = None, _globals: dict = None, *args, **kwargs):
 
 if __name__ == '__main__':
     url = "https://fastly.jsdelivr.net/gh/zmaplex/fetch_import@main/example/sets.py"
-
     attrs = _import(url, module=True)
-
     print(attrs)
