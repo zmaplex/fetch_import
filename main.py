@@ -1,5 +1,6 @@
 from fetch_import import im_fetch
 
+YoutubeDownloader = object
 
 ydl_opts = {
     'f': 'bestvideo+bestaudio[ext=m4a]',
@@ -14,11 +15,12 @@ job_args = {
     }
 }
 
-
 url = "https://fastly.jsdelivr.net/gh/zmaplex/fetch_import@main/example/youtube_downloader.py"
-@im_fetch(url)
+
+
+@im_fetch(url,attrs=["YoutubeDownloader"])
 def main():
-    yd = youtube_downloader.YoutubeDownloader()
+    yd = YoutubeDownloader()
     yd.run(**job_args)
 
 
