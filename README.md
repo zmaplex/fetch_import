@@ -70,7 +70,7 @@ pip -r requirements.txt
 
 **step 2**
 
-```
+```python
 from fetch_import import im_fetch
 
 
