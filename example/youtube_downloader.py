@@ -3,11 +3,11 @@ from typing import List
 
 from yt_dlp import YoutubeDL
 
-from fetch_import import _import
+from fetch_import import _im_fetch
 
-_import(globals(),
-        "https://raw.githubusercontent.com/zmaplex/fetch_import/main/example/job_plugin.py",
-        "JobPlugin", ["JobPlugin"])
+JobPlugin = None
+url = "https://raw.githubusercontent.com/zmaplex/fetch_import/main/example/job_plugin.py"
+_im_fetch(url, attrs=["JobPlugin"], _globals=globals())
 
 
 class Subtitle:
