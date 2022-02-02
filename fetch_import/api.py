@@ -1,11 +1,11 @@
+import hashlib
 import importlib
 import os
 import sys
 import time
 import traceback
 from functools import wraps
-import hashlib
-from typing import List, Union
+from typing import List
 
 import requests
 
@@ -92,10 +92,6 @@ def _import(url: str, module: bool = False, alias=None, dir_path="/var/tmp/fetch
 
     try:
 
-        content = requests.get(url)
-        if content.status_code != 200:
-            return _attrs
-        md5 = _calc_hash(content.text)
         url_md5 = _calc_hash(url)
         mdc_filename = f"{dir_path}/{url_md5}.mdc"
 
@@ -106,6 +102,12 @@ def _import(url: str, module: bool = False, alias=None, dir_path="/var/tmp/fetch
         if res:
             filename = file_name
         else:
+
+            content = requests.get(url)
+            if content.status_code != 200:
+                return _attrs
+            md5 = _calc_hash(content.text)
+
             with open(mdc_filename, "w") as f:
                 f.write(f"{md5}_{filename}")
 
@@ -141,6 +143,7 @@ def _im_fetch(url, attrs: List = None, _globals: dict = None, *args, **kwargs):
               equal "from module_name import *"
             - ["AbstractClass","AbstractMetaClass","ObjectClass","TypeClass","def_function"]
               equal "from module_name import AbstractClass,AbstractMetaClass,ObjectClass,TypeClass,def_function"
+    :param cache_time_out:default 30 sec
     :param _globals:
     :param args:
     :param kwargs:
@@ -171,6 +174,22 @@ def _im_fetch(url, attrs: List = None, _globals: dict = None, *args, **kwargs):
 
 
 def im_fetch(url, attrs: List = None, _globals: dict = None, *args, **kwargs):
+    """
+    :param url: https://example.com/{module_name}.py
+    :param attrs:
+            - None
+              equal "import module_name "
+            - ["*"]
+              equal "from module_name import *"
+            - ["AbstractClass","AbstractMetaClass","ObjectClass","TypeClass","def_function"]
+              equal "from module_name import AbstractClass,AbstractMetaClass,ObjectClass,TypeClass,def_function"
+    :param cache_time_out:default 30 sec
+    :param _globals:
+    :param args:
+    :param kwargs:
+    :return:
+    """
+
     def decorator(func):
         @wraps(func)
         def wrapper(*func_args, **func_kwargs):
