@@ -89,20 +89,15 @@ def _import(url: str, module: bool = False, alias=None, dir_path="/var/tmp/fetch
         module_name = filename
     else:
         module_name = alias
-
     try:
-
         url_md5 = _calc_hash(url)
         mdc_filename = f"{dir_path}/{url_md5}.mdc"
-
         time_out = kwargs.get("cache_time_out", 30)
-
         res, file_name = __has_cache(mdc_filename, time_out)
 
         if res:
             filename = file_name
         else:
-
             content = requests.get(url)
             if content.status_code != 200:
                 return _attrs
@@ -154,7 +149,7 @@ def _im_fetch(url, attrs: List = None, _globals: dict = None, *args, **kwargs):
         module_attrs = _import(url=url, module=True, *args, **kwargs)
         ready_add_attrs.update(module_attrs)
     elif len(attrs) == 1 and attrs[0] == "*":
-        module_attrs = _import(url=url)
+        module_attrs = _import(url=url, *args, **kwargs)
         ready_add_attrs.update(module_attrs)
     else:
         module_attrs = _import(url=url, *args, **kwargs)
