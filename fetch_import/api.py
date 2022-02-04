@@ -66,7 +66,7 @@ def __has_cache(mdc_filename: str, time_out: int = 30):
         return False, ""
 
 
-def _import(url: str, module: bool = False, alias=None, dir_path="/var/tmp/fetch_import", *args, **kwargs):
+def _import(url: str, module: bool = False, alias=None, dir_path="/tmp/fetch_import", *args, **kwargs):
     """
 
     :param url: remote url,https://example.com/name.py
@@ -76,8 +76,9 @@ def _import(url: str, module: bool = False, alias=None, dir_path="/var/tmp/fetch
     :return:
     """
     _attrs = {}
+    requests_params = kwargs.get("requests_params", {"no_cache": time.time()})
 
-    if os.name != 'posix':
+    if os.name.lower() != 'posix':
         dir_path = "./"
     else:
         _mkdir(dir_path)
@@ -98,7 +99,7 @@ def _import(url: str, module: bool = False, alias=None, dir_path="/var/tmp/fetch
         if res:
             filename = file_name
         else:
-            content = requests.get(url)
+            content = requests.get(url, params=requests_params)
             if content.status_code != 200:
                 return _attrs
             md5 = _calc_hash(content.text)
